@@ -26,4 +26,22 @@
 
   var y = document.getElementById("year");
   if (y) y.textContent = new Date().getFullYear();
+
+  // "Last updated": GitHub Pages sets Last-Modified to the deploy time,
+  // so this changes on every push. Stays hidden if the header is missing.
+  var upd = document.getElementById("updated");
+  if (upd && window.fetch && location.protocol.indexOf("http") === 0) {
+    fetch(location.href, { method: "HEAD", cache: "no-store" })
+      .then(function (r) {
+        var lm = r.headers.get("Last-Modified");
+        if (!lm) return;
+        var d = new Date(lm);
+        if (isNaN(d)) return;
+        var t = upd.querySelector("time");
+        t.dateTime = d.toISOString();
+        t.textContent = d.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+        upd.hidden = false;
+      })
+      .catch(function () {});
+  }
 })();

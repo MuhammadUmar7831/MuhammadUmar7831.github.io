@@ -90,6 +90,19 @@ img { max-width: 100%; display: block; }
 }
 .theme-btn:hover { color: var(--text); }
 
+.nav-end { display: flex; align-items: center; gap: 10px; flex: none; }
+.flag { position: relative; display: block; width: 27px; height: 18px; cursor: default; }
+.flag svg { width: 100%; height: 100%; display: block; border-radius: 2px; box-shadow: 0 0 0 1px var(--rule); }
+.flag::after {
+  content: attr(data-tip);
+  position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+  background: var(--text); color: var(--bg);
+  font-size: 0.78rem; padding: 3px 8px; border-radius: 4px; white-space: nowrap;
+  opacity: 0; pointer-events: none; transition: opacity 0.15s;
+}
+.flag:hover::after, .flag:focus-visible::after { opacity: 1; }
+.flag:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
 @media (max-width: 640px) {
   .nav .brand { display: none; }
   .nav ul { gap: 14px; }
@@ -133,10 +146,6 @@ h3 { font-size: 1rem; font-weight: 600; margin: 0; }
 .muted { color: var(--muted); }
 .small { font-size: 0.9rem; }
 
-/* news */
-.news { list-style: none; margin: 0; padding: 0; }
-.news li { display: grid; grid-template-columns: 96px 1fr; gap: 12px; padding: 5px 0; }
-.news time { color: var(--muted); font-size: 0.9rem; font-variant-numeric: tabular-nums; padding-top: 1px; }
 
 /* interests */
 .chips { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 0; list-style: none; }
@@ -169,6 +178,22 @@ h3 { font-size: 1rem; font-weight: 600; margin: 0; }
   .entry { grid-template-columns: 1fr; }
 }
 
+/* entries with an organisation logo, LinkedIn-style */
+.org { display: grid; grid-template-columns: 48px 1fr; gap: 16px; align-items: start; }
+.org + .org { border-top: 1px dashed var(--rule); }
+.org .logo {
+  width: 48px; height: 48px; margin-top: 12px; border-radius: 8px;
+  border: 1px solid var(--rule); background: #fff; object-fit: contain;
+}
+.org .logo-ph {
+  display: grid; place-items: center; background: var(--accent-soft); color: var(--accent);
+  font-weight: 600; font-size: 0.95rem; letter-spacing: 0.03em;
+}
+@media (max-width: 640px) {
+  .org { grid-template-columns: 40px 1fr; gap: 12px; }
+  .org .logo { width: 40px; height: 40px; }
+}
+
 /* projects (main page) */
 .project { display: grid; grid-template-columns: 200px 1fr; gap: 20px; padding: 14px 0; }
 .project + .project { border-top: 1px dashed var(--rule); }
@@ -178,6 +203,7 @@ h3 { font-size: 1rem; font-weight: 600; margin: 0; }
   aspect-ratio: 3 / 2; display: grid; place-items: center;
   color: var(--muted); font-family: var(--serif); font-size: 1.3rem;
 }
+a.ph:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
 .project p { margin: 6px 0; }
 .stack { color: var(--muted); font-size: 0.88rem; }
 .project .links { margin-top: 6px; font-size: 0.9rem; }
